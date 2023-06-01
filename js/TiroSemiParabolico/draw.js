@@ -8,13 +8,12 @@ canvas.height = 500;
 let canvasWidth = canvas.width;
 let canvasHeight = canvas.height;
 let sphereX = 60;
-let sphereY = canvasHeight - 40;
+let sphereY = (canvasHeight-(height*15))-40;
 
 
 window.onload = function() {
     drawLandscape();
-    let sphereX = 60;
-    let sphereY = canvasHeight - 40; // Para que quede por encima del césped
+    drawRectangle()
     drawSphere(sphereX, sphereY);
     drawGoalZone()
   };
@@ -51,13 +50,16 @@ function drawPath() {
   const path = final(); // Suponiendo que tienes una función llamada final() que devuelve el array de arrays
 
   let index = 0; // Variable para seguir el índice de posición actual en el array path
-
+  sphereY = (canvasHeight-(height*15)-40);
   function animate() {
     // Limpia el canvas antes de dibujar la siguiente posición
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
     // Vuelve a dibujar el paisaje en cada frame
     drawLandscape();
+    drawRectangle();
+    drawGoalZone();
+    drawRectangle();
 
     // Dibuja la línea de color azul
     ctx.strokeStyle = 'blue';
@@ -69,7 +71,7 @@ function drawPath() {
     for (let i = 0; i <= index; i++) {
       const point = path[i];
       let x = (point[2] * 10);
-      let y = -(point[1] * 5);
+      let y = -(point[1] * 15)+(height*15);
       ctx.lineTo(x + sphereX, y + sphereY);
       drawCircle(x + sphereX, y + sphereY);
     }
@@ -79,11 +81,12 @@ function drawPath() {
     // Obtiene la siguiente posición del array path
     const point = path[index];
     let x = (point[2] * 10);
-    let y = -(point[1] * 5);
+    let y = -(point[1] * 15)+(height*15);
 
     drawGoalZone();
     // Dibuja la esfera en la posición actual
     drawSphere(x + sphereX, y + sphereY);
+    drawRectangle()
 
     index++; // Incrementa el índice para pasar a la siguiente posición
 
@@ -97,7 +100,7 @@ function drawPath() {
       addDataToTable(path); // Agregar los datos de posición a la tabla
       
       // Verificar el rango y llamar a drawStar() si es necesario
-      if ((x + sphereX) >= 900 && (x + sphereX) <= 940) {
+      if ((x + sphereX) >= 350 && (x + sphereX) <= 390) {
         drawStar();
       }
     }
@@ -176,23 +179,50 @@ function addDataToTable(data) {
 }
 
 function drawGoalZone(){
-  // Establece el color de relleno en blanco grisáceo
-        ctx.fillStyle = "rgb(220, 220, 220)";
+  const altura = 10;
+  const radio = 50;
 
-        // Dibuja los barrotes de la portería (rectángulo sin base inferior)
-        ctx.fillRect(910, canvasHeight -140, 30, 10); // Barra superior
-        ctx.fillRect(910, sphereY+5, 10, -100); // Barra izquierda
-        ctx.fillRect(910 +20, sphereY+10, 10, -100); // Barra derecha
+  // Calcular las coordenadas del centro del cilindro
+  const centroX = canvas.width / 2;
+  const centroY = canvas.height / 2;
+
+  // Dibujar el cilindro
+  ctx.beginPath();
+
+  // Dibujar la base del cilindro (círculo)
+  ctx.arc(centroX, centroY, radio, 0, Math.PI * 2);
+  ctx.fillStyle = 'blue';
+  ctx.fill();
+
+  // Dibujar el lado superior del cilindro (rectángulo)
+  ctx.fillRect(centroX - radio, centroY - altura, radio * 2, altura);
+
+  // Dibujar el lado inferior del cilindro (rectángulo)
+  ctx.fillRect(centroX - radio, centroY, radio * 2, altura);
+
+  ctx.closePath();
+
 }
 
-function checkBallInRange(ballX) {
-  return ballX >= 900 && ballX <= 940;
+function drawRectangle() {
+
+  // Definir las dimensiones del rectángulo
+  const width = 50;
+  const altura = height*15
+  const x = 35;
+  const y = (canvasHeight-altura)-40
+
+  // Dibujar el rectángulo
+  ctx.fillStyle = '#C0C0C0';
+  ctx.fillRect(x, y, width, altura);
 }
+
+
 
 function drawStar() {
   let size = 5; // Tamaño inicial
   const maxSize = 40; // Tamaño máximo
-  const x = 900; // Posición x
+  const x = 350; // Posición x
   const y = canvasHeight - 40; // Posición y
   let animationFrameId = null; // Identificador del frame de animación
   
@@ -210,6 +240,7 @@ function drawStar() {
       
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       drawLandscape();
+      drawRectangle()
       drawSphere(sphereX, sphereY);
       drawGoalZone();
       
@@ -240,3 +271,13 @@ function drawStar() {
   
   animate();
 }
+function drawGoalZone() {
+  var x = 350; // Posición x
+      var y = 490; // Posición y
+      var size = 30; // Tamaño del emoji
+
+      // Dibujar el emoji ❌
+      ctx.font = size + "px Arial";
+      ctx.fillText("❌", x, y);
+    };
+
