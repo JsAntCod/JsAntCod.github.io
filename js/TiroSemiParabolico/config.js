@@ -18,16 +18,6 @@ velocitySlider.oninput = function() {
     velocity = this.value;
 };
 
-heightSlider.oninput = function() {
-    heightValue.innerHTML = this.value;
-    height = this.value;
-  };
-
-massSlider.oninput = function() {
-    massValue.innerHTML = this.value;
-    mass = this.value;
-};
-
 
 gravityInput.oninput = function() {
     if (this.value < 5) {

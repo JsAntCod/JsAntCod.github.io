@@ -11,12 +11,31 @@ let sphereX = 60;
 let sphereY = (canvasHeight-(height*15))-40;
 
 
+
 window.onload = function() {
     drawLandscape();
     drawRectangle()
     drawSphere(sphereX, sphereY);
     drawGoalZone()
   };
+
+heightSlider.oninput = function() {
+    heightValue.innerHTML = this.value;
+    height = this.value;
+    drawLandscape();
+    drawRectangle()
+    drawSphere(sphereX, canvasHeight-(height*15)-40);
+    drawGoalZone()
+};
+  
+massSlider.oninput = function() {
+    massValue.innerHTML = this.value;
+    mass = this.value;
+    drawLandscape();
+    drawRectangle()
+    drawSphere(sphereX, canvasHeight-(height*15)-40);
+    drawGoalZone()
+};
 
 btn.addEventListener('click', drawPath)
 

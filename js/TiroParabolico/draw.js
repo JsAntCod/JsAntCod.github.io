@@ -13,11 +13,17 @@ let sphereY = canvasHeight - 40;
 
 window.onload = function() {
     drawLandscape();
-    let sphereX = 60;
-    let sphereY = canvasHeight - 40; // Para que quede por encima del césped
     drawSphere(sphereX, sphereY);
     drawGoalZone()
   };
+
+  massSlider.oninput = function() {
+    massValue.innerHTML = this.value;
+    mass = this.value;
+    drawLandscape();
+    drawSphere(sphereX, sphereY);
+    drawGoalZone()
+};
 
 btn.addEventListener('click', drawPath)
 

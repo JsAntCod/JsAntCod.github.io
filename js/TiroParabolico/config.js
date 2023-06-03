@@ -25,10 +25,6 @@ velocitySlider.oninput = function() {
     velocity = this.value;
 };
 
-massSlider.oninput = function() {
-    massValue.innerHTML = this.value;
-    mass = this.value;
-};
 
 
 gravityInput.oninput = function() {
