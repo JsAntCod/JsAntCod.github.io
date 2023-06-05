@@ -66,7 +66,7 @@ function drawSphere(x, y) {
 }
 
 function drawPath() {
-  const path = final(); // Suponiendo que tienes una función llamada final() que devuelve el array de arrays
+  const path = final(); 
 
   let index = 0; // Variable para seguir el índice de posición actual en el array path
   sphereY = (canvasHeight-(height*15)-40);
@@ -111,7 +111,7 @@ function drawPath() {
 
     // Si se alcanza el final del array path, se detiene la animación
     if (index < path.length) {
-      // Establece un retraso de 200 milisegundos antes de pasar a la siguiente posición
+      // Establece un retraso de 24 milisegundos antes de pasar a la siguiente posición
       setTimeout(function() {
         requestAnimationFrame(animate); // Llama a la función animate en el próximo frame después del retraso
       }, 24);
@@ -298,5 +298,5 @@ function drawGoalZone() {
       // Dibujar el emoji ❌
       ctx.font = size + "px Arial";
       ctx.fillText("❌", x, y);
-    };
+};
 

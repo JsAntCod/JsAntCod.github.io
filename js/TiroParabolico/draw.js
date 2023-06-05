@@ -54,7 +54,7 @@ function drawSphere(x, y) {
 }
 
 function drawPath() {
-  const path = final(); // Suponiendo que tienes una función llamada final() que devuelve el array de arrays
+  const path = final(); 
 
   let index = 0; // Variable para seguir el índice de posición actual en el array path
 
@@ -95,7 +95,7 @@ function drawPath() {
 
     // Si se alcanza el final del array path, se detiene la animación
     if (index < path.length) {
-      // Establece un retraso de 200 milisegundos antes de pasar a la siguiente posición
+      // Establece un retraso de 24 milisegundos antes de pasar a la siguiente posición
       setTimeout(function() {
         requestAnimationFrame(animate); // Llama a la función animate en el próximo frame después del retraso
       }, 24);
@@ -182,18 +182,17 @@ function addDataToTable(data) {
 }
 
 function drawGoalZone(){
-  // Establece el color de relleno en blanco grisáceo
-        ctx.fillStyle = "rgb(220, 220, 220)";
 
-        // Dibuja los barrotes de la portería (rectángulo sin base inferior)
-        ctx.fillRect(910, canvasHeight -140, 30, 10); // Barra superior
-        ctx.fillRect(910, sphereY+5, 10, -100); // Barra izquierda
-        ctx.fillRect(910 +20, sphereY+10, 10, -100); // Barra derecha
+        var x = 900; // Posición x
+        var y = 490; // Posición y
+        var size = 30; // Tamaño del emoji
+  
+        // Dibujar el emoji ❌
+        ctx.font = size + "px Arial";
+        ctx.fillText("❌", x, y);
 }
 
-function checkBallInRange(ballX) {
-  return ballX >= 900 && ballX <= 940;
-}
+
 
 function drawStar() {
   let size = 5; // Tamaño inicial

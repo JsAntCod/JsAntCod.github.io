@@ -6,6 +6,9 @@ body{
   padding: 1.5vh;
 
 }
+button{
+  margin: 2px;
+}
 #game {
     position: relative;
     width: 100%;
