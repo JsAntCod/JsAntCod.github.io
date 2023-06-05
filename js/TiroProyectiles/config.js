@@ -1,12 +1,15 @@
+let angleSlider = document.getElementById("angle-slider");
 let velocitySlider = document.getElementById("velocity-slider");
 let massSlider = document.getElementById("mass-slider");
-let heightSlider = document.getElementById("height-slider");
 let gravityInput = document.getElementById("gravity");
+let angleValue = document.getElementById("angle-value");
 let velocityValue = document.getElementById("velocity-value");
 let massValue = document.getElementById("mass-value");
+let heightSlider = document.getElementById("height-slider");
 let heightValue = document.getElementById("height-value");
 
-
+let angle = angleSlider.value;
+let angleInRadians;
 let velocity = velocitySlider.value;
 let mass = massSlider.value;
 let gravity = gravityInput.value;
@@ -17,7 +20,10 @@ velocitySlider.oninput = function() {
     velocityValue.innerHTML = this.value;
     velocity = this.value;
 };
-
+angleSlider.oninput = function() {
+    angleValue.innerHTML = this.value;
+    angle = this.value;
+};
 
 gravityInput.oninput = function() {
     if (this.value < 5) {
@@ -29,8 +35,12 @@ gravityInput.oninput = function() {
 };
 
 function flyTime() {
-    const finalVelocity = Number(Math.sqrt(2*gravity*height).toFixed(2))
-    return Number((finalVelocity/gravity).toFixed(2))
+    angleInRadians = (angle * Math.PI) / 180;
+    const firstTime = Number(((velocity*Math.sin(angleInRadians))/gravity).toFixed(2))
+    const firstHeight= Number((0.5*gravity*firstTime*firstTime).toFixed(2))
+    const totalHeight = firstHeight+(Number(height))
+    const finalTime = Number((Math.sqrt((2*(totalHeight))/9.81)).toFixed(2))
+    return firstTime + finalTime
 }
 
 function calcPosition(tiempoDeVuelo) {
@@ -38,15 +48,20 @@ function calcPosition(tiempoDeVuelo) {
     let position = [];
     let altura = Number(height);
     let xPosition= 0;
+    let initialVelocity = Number(velocity)
+    angleInRadians = (angle * Math.PI) / 180;
     position.push([0, altura,xPosition]);
     while (tiempoTranscurrido < tiempoDeVuelo) {
         tiempoTranscurrido += 0.1;
-        altura = Number((height  - 0.5 * gravity * Math.pow(tiempoTranscurrido, 2)).toFixed(2));
-        xPosition = parseFloat((velocity  * tiempoTranscurrido).toFixed(2));
-        if (altura <= 0.09) {
-            altura = 0.00;
+
+        let yPosition = Number(((altura) + (initialVelocity*Math.sin(angleInRadians)*tiempoTranscurrido) + (-0.5 * gravity * tiempoTranscurrido*tiempoTranscurrido))   .toFixed(2));
+
+
+        xPosition = parseFloat((velocity*Math.cos(angleInRadians)  * tiempoTranscurrido).toFixed(2));
+        if (yPosition <= 0.09) {
+            yPosition = 0.00;
         }
-        position.push([Number(tiempoTranscurrido.toFixed(2)), altura,xPosition]);
+        position.push([Number(tiempoTranscurrido.toFixed(2)), yPosition,xPosition]);
     }
     return position;
 }
