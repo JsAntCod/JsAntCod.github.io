@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <title>Tiro Parabolico</title>
+    <title>Tiro Semi-Parabolico</title>
 </head>
 <body>
     <div id="game">
@@ -14,15 +14,20 @@
       <div id="options">
         <h2>Opciones de tiro</h2>        
         <div class="option">
-          <label for="angle">Ángulo de tiro:</label>
-          <input type="range" id="angle-slider" min="0" max="90" value="45">
-          <span id="angle-value">45</span>
+            <label for="angle">Ángulo de tiro:</label>
+            <input type="range" id="angle-slider" min="0" max="90" value="45">
+            <span id="angle-value">45</span>
         </div>
         <div class="option">
           <label for="velocity">Velocidad:</label>
           <input type="range" id="velocity-slider" min="0" max="30" value="18">
           <span id="velocity-value">18</span>
         </div>
+        <div class="option">
+          <label for="height">Altura:</label>
+          <input type="range" id="height-slider" min="5" max="20" value="10">
+          <span id="height-value">10</span>
+        </div>        
         <div class="option">
           <label for="mass">Masa del objeto:</label>
           <input type="range" id="mass-slider" min="1" max="15" value="10">
@@ -49,7 +54,7 @@
         </tbody>
       </table>
       
-      <script src="js/TiroParabolico/config.js"></script>
-      <script src="js/TiroParabolico/draw.js"></script>
+      <script src="js/TiroProyectiles/config.js"></script>
+      <script src="js/TiroProyectiles/draw.js"></script>
 </body>
 </html>
